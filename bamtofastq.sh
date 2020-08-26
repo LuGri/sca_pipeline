@@ -17,11 +17,13 @@ while getopts p:i:o: flag
 	
 	#double check if this works correctly
 	#to check:
+	
 	#source activate __cellranger@3.1.0
+	
 	#take each file in bam/ directory and create a directory
 	#with fastq files in them in the fastq/ directory
 	for filename in $inputdir/*.bam; do
-		fastq_dir=$(basename "${filename%.*}")
+		fastqdir=$(basename "${filename%.*}")
 		echo $fastqdir
 		echo $outputdir
 		
