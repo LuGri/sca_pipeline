@@ -2,7 +2,7 @@
 
 #aggregate samples with cellranger aggr
 #argument parsing
-while getopts p:l:m:i:o flag
+while getopts p:l:m:i:o: flag
 	do
 	    case "${flag}" in
 	        p) project=${OPTARG};;	 
