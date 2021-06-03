@@ -106,7 +106,8 @@ if $makelibcsv; then
 	else
 	libs=$(readlink -f ${libs})
 fi
-	
+
+#	
 source activate __cellranger@3.1.0
 
 #cellranger puts outputs into the current working directory
