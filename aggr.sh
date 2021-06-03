@@ -25,6 +25,11 @@ no_args=true
 #which will then automatically create a libraries.csv
 makelibcsv=false
 
+#variable to check if -l has been set
+#this is used in a conditional below to terminate the script
+#if both -l and -m have been set
+libs_is_set=false
+
 while getopts mp:l:c:a: OPTION
 	do
 	    case "${OPTION}" in
@@ -36,6 +41,7 @@ while getopts mp:l:c:a: OPTION
 				;;	 
 	        l) 
 				libs=${OPTARG} #user provided libraries.csv, if applicable
+				libs_is_set=true
 				;;  	        
 	        c) 
 				countdir=${OPTARG}
@@ -58,6 +64,13 @@ echo "make library.csv: $makelibcsv";
 echo "Input folder (output of cellranger count): $countdir";
 echo "Output directory (output of cellranger aggr): $aggrdir";
 
+#Terminate script if both -m and -l have been set
+if [[ "$libs_is_set" = true && "$makelibcsv" = true ]]; then 
+	echo "Error: can't set both -m and -l" >&2
+	exit 1
+fi
+
+
 #Automatically generate a library.csv with all available samples
 #if the corresponding flag was set by the user
 
@@ -67,8 +80,13 @@ echo "Output directory (output of cellranger aggr): $aggrdir";
 	
 if $makelibcsv; then
 	cd $countdir
-		
-	echo 'Generating libraries.csv'
+	
+	if [[ -f "libraries.csv" ]]; then
+		echo "Removing old libraries.csv"
+		rm libraries.csv
+	fi
+	
+	echo 'Creating new libraries.csv'
 	touch libraries.csv
 	echo "library_id,molecule_h5" >> libraries.csv
 	
@@ -86,7 +104,7 @@ if $makelibcsv; then
 		
 	libs=$(readlink -f libraries.csv)
 	else
-	libs=$libs
+	libs=$(readlink -f ${libs})
 fi
 	
 source activate __cellranger@3.1.0
