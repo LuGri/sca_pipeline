@@ -1,0 +1,9 @@
+runbamtofastq=false
+runcount=true
+runaggr=true
+projectname=
+bamdirectory=
+fastqdirectory=
+referencegenome=
+countdirectory=
+aggrdirectory=

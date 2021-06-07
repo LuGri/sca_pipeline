@@ -57,25 +57,32 @@ fi
 #load config file containing variables used further					
 source $CONFIG
 
+#config file contains these variables:
+#runbamtofastq(true or false): whether or not to run bamtofastq.sh
+#runcount(true or false): whether or not to run count.sh
+#runaggr(true or false): whether or not to run aggr.sh
+#projectname: name of project (currently unused, implemented just in case)
+#bamdirectory: path to directory where bamfiles are located
+#fastqdirectory: path to directory where fastq files are/will be located
+#referencegenome: path to directory containing reference genome
+#countdirectory: path to directory where the results of count.sh will be located
+#aggrdirectory: path to directory where the results of aggr.sh will be located
+
 #main
 #run selected modules
 
-if $download; then
-    echo 'Running download.sh'
-    #TODO
-fi
 
-if $bamtofastq; then
+if $runbamtofastq; then
 	echo "Running bamtofastq.sh"
-	#TODO
+	bash ./bamtofastq.sh -p $projectname -b $bamdirectory -f $fastqdirectory
 fi
 
-if $count; then
+if $runcount; then
     echo 'Running count.sh'
-    #TODO
+    bash ./count.sh -p $projectname -r $referencegenome -f $fastqdirectory -c $countdirectory
 fi
 
-if $aggr; then
+if $runaggr; then
     echo 'Running aggr.sh'
-    #TODO
+    bash ./aggr.sh -m -p $projectname -c $countdirectory -a $aggrdirectory
 fi

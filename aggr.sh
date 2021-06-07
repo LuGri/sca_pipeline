@@ -10,7 +10,7 @@ set -o pipefail
 #function to display a usage message in case of incorrect user input
 usage()
 {
-    echo "Script usage: $(basename $0) [-m] [-p projectname] [-l path/to/libraries.csv] [-f path/to/fastqfiledirectory] [-c path/to/countdirectory] [-a path/to/aggrdirectory]}" >&2
+    echo "Script usage: $(basename $0) [-m] [-p projectname] [-l path/to/libraries.csv] [-c path/to/countdirectory] [-a path/to/aggrdirectory]}" >&2
     exit 1
 }
 

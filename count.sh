@@ -34,7 +34,7 @@ while getopts 'p:r:f:c:' OPTION
 				fastqdir=${OPTARG} #absolute path
 				;; 
 	        c) 
-				countdir=${OPTARG}
+				countdir=${OPTARG} #absolute path
 				;;
 			?)
 				usage
@@ -67,7 +67,7 @@ cd $countdir
 #every subdirectory in fastqdir should only contain the fastqs for
 #that sample library
 	
-for dir in ${inputdata}*/; do
+for dir in ${fastqdir}*/; do
 	#extract the directory name and save as variable id
 	#for naming purposes
 	id=$dir
