@@ -81,5 +81,5 @@ for dir in ${fastqdir}*/; do
 	cellranger count --id=$id --transcriptome=$ref --fastqs=$dir
 done
 	
-	
+source deactivate	
 		

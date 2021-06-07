@@ -115,3 +115,5 @@ source activate __cellranger@3.1.0
 cd $aggrdir
 	
 cellranger aggr --id=$project --csv=$libs
+
+source deactivate
