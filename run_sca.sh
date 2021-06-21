@@ -71,6 +71,7 @@ source $CONFIG
 #main
 #run selected modules
 
+source activate __cellranger@3.1.0
 
 if $runbamtofastq; then
 	echo "Running bamtofastq.sh"
@@ -86,3 +87,5 @@ if $runaggr; then
     echo 'Running aggr.sh'
     bash ./aggr.sh -m -p $projectname -c $countdirectory -a $aggrdirectory
 fi
+
+#source deactivate

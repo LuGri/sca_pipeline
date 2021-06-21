@@ -10,7 +10,7 @@ set -o pipefail
 #function to display a usage message in case of incorrect user input
 usage()
 {
-    echo "Script usage: $(basename $0) [-m] [-p projectname] [-l path/to/libraries.csv] [-c path/to/countdirectory] [-a path/to/aggrdirectory]}" >&2
+    echo "Script usage: $(basename $0) [-m] [-p projectname] [-l path/to/libraries.csv] [-c path/to/countdirectory] [-a path/to/aggrdirectory]" >&2
     exit 1
 }
 
@@ -59,7 +59,7 @@ while getopts mp:l:c:a: OPTION
 	done
 	
 echo "Project name: $project";
-echo "libraries.csv: $libs";
+#echo "libraries.csv: $libs";
 echo "make library.csv: $makelibcsv";
 echo "Input folder (output of cellranger count): $countdir";
 echo "Output directory (output of cellranger aggr): $aggrdir";
@@ -107,8 +107,6 @@ if $makelibcsv; then
 	libs=$(readlink -f ${libs})
 fi
 
-#	
-source activate __cellranger@3.1.0
 
 #cellranger puts outputs into the current working directory
 #so we change into the designated output directory
@@ -116,4 +114,3 @@ cd $aggrdir
 	
 cellranger aggr --id=$project --csv=$libs
 
-source deactivate

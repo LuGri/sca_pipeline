@@ -9,7 +9,7 @@ set -o pipefail
 #function to display a usage message in case of incorrect user input
 usage()
 {
-    echo "Script usage: $(basename $0) [-p projectname] [-b path/to/bamfiledirectory] [-f path/to/fastqfiledirectory}" >&2
+    echo "Script usage: $(basename $0) [-p projectname] [-b path/to/bamfiledirectory] [-f path/to/fastqfiledirectory]" >&2
     exit 1
 }
 
@@ -49,7 +49,6 @@ echo "Project name: $project";
 echo "BAM file directory: $bamdir";
 echo "Fastq file directory: $outputdir";
 		
-source activate __cellranger@3.1.0
 
 #take each file in directory containing bam files
 #and convert them to fastq using bamtofastq
@@ -63,4 +62,3 @@ for filename in $bamdir/*.bam; do
 	####bamtofastq $filename $dir
 done
 
-source deactivate	

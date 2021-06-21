@@ -9,7 +9,7 @@ set -o pipefail
 #function to display a usage message in case of incorrect user input
 usage()
 {
-    echo "Script usage: $(basename $0) [-p projectname] [-r path/to/referencegenome] [-f path/to/fastqfiledirectory] [-c path/to/countoutputdirectory]}" >&2
+    echo "Script usage: $(basename $0) [-p projectname] [-r path/to/referencegenome] [-f path/to/fastqfiledirectory] [-c path/to/countoutputdirectory]" >&2
     exit 1
 }
 
@@ -57,7 +57,6 @@ echo "Input data (fastq) directory: $fastqdir";
 echo "Output directory (results of cellranger count): $countdir";
 	
 
-source activate __cellranger@3.1.0
 	
 #cellranger puts outputs into the current working directory
 #so we change into the designated output directory
@@ -67,7 +66,7 @@ cd $countdir
 #every subdirectory in fastqdir should only contain the fastqs for
 #that sample library
 	
-for dir in ${fastqdir}*/; do
+for dir in ${fastqdir}/*/; do
 	#extract the directory name and save as variable id
 	#for naming purposes
 	id=$dir
@@ -81,5 +80,4 @@ for dir in ${fastqdir}*/; do
 	cellranger count --id=$id --transcriptome=$ref --fastqs=$dir
 done
 	
-source deactivate	
-		
+
