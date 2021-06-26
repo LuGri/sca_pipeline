@@ -77,7 +77,13 @@ for dir in ${fastqdir}/*/; do
 	#--id: name of output directory (here: same name as input directory containing fastqs)
 	#--transcriptome: path to reference genome
 	#--fastqs: path to fastqs of sample library
-	cellranger count --id=$id --transcriptome=$ref --fastqs=$dir
+	
+	#run cellranger count only if the output directory for that ID doesn't exist yet
+	if [[ -d ./$id/outs ]]; then
+		continue
+	else
+		cellranger count --id=$id --transcriptome=$ref --fastqs=$dir
+	fi
 done
 	
 
