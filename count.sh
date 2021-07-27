@@ -78,12 +78,22 @@ for dir in ${fastqdir}/*/; do
 	#--transcriptome: path to reference genome
 	#--fastqs: path to fastqs of sample library
 	
-	#run cellranger count only if the output directory for that ID doesn't exist yet
+	#run cellranger count only if the output directory for that ID doesn't exist yet;
+	#if it exists, end the current iteration of the loop and jump to the next instance
 	if [[ -d ./$id/outs ]]; then
 		continue
-	else
-		cellranger count --id=$id --transcriptome=$ref --fastqs=$dir
 	fi
+	
+	#if the outs subdirectory doesn't exist, it means an attempt to run the pipeline has failed before
+	#since the pipeline cannot be started again with the same id if a directory with this ID already exists,
+	#we have to delete it first
+	if [[ -d ./$id ]]; then
+		rm -r ./$id
+	fi
+	
+	#run the pipeline
+	cellranger count --id=$id --transcriptome=$ref --fastqs=$dir
+	
 done
 	
 
